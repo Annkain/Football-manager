@@ -2,21 +2,23 @@
 from random import randint
 from time import sleep
 from os import system, name
-teamRatingHome = 2.55  # home team odds f.e. from livescore.com
+teamRatingHome = 2.5  # home team odds f.e. from livescore.com
 
-teamRatingAway = 2.55  # away team odds f.e. from livescore.com
-teamHomeScore = (10 - teamRatingHome) *5
-teamAwayScore = (10 - teamRatingAway) 
+teamRatingAway = 2.5  # away team odds f.e. from livescore.com
+teamHomeScore = (10 - teamRatingHome) *3
+teamAwayScore = (10 - teamRatingAway) *3
 shootChance = 50  #percentage chanc e to hoot
 hitChance = 50
 shootAttempt = None  # randomize chance to shoot from your position, if > than shootChance then footballer shoots
 saveChance = 40  # percentage chance to save a shoot
 saveAttempt = None  # randomize chance to save a shoot, if > than saveChance than shoot is saved
+text1 = ''
+text2 = ''
 
 matchHalfLenght = 45  #first half time
 timeSecondHalf = 45  #second thalf time
-teamHome = 'Real Madrid'
-teamAway = 'FC Barcelona'
+teamHome = 'Real Madryt'
+teamAway = 'Liverpol FC'
 ballPosesion = teamHome
 ballNotPossesion = teamAway
 playTest = None
@@ -34,32 +36,30 @@ playChance = 85
 scoreHome = 0
 scoreAway = 0
 possesionChange = None
-goals = []
+goals = [] 
+skipSomeIf = False # this variable helps to skip loops after goal
 print('Rozpoczynamy mecz pomiędzy ',teamHome,' a ',teamAway,'!')
 print('Spotkanie rozpocznie druzyna gospodarzy')
+sleep(5)
+def clear():
+  _ = system('clear')
+clear()
 def time():
   global timer, matchHalfLenght
   
-  sleep(0.7)
+  sleep(5)
   timer += 1
   clear()
   matchHalfLenght -= 1
   
   
-def clear():
-  
-    # for windows
-    if name == 'nt':
-        _ = system('cls')
-  
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system('clear')
+
 while matchHalfLenght > 0:
+  skipSomeIf = False # means that no goal yet
   if timer == 0:
     print(teamHome,' rozpoczyna spotkanie z środka boiska')
   else:
-    print('',timer,'minuta spotkania')
+    
     print('Aktualnie gra toczy się na : ',pitchZone[ballPosition])
   #sleep(0.8)
   playTest = randint(1,100)
@@ -86,27 +86,32 @@ while matchHalfLenght > 0:
             goal = ballPosesion +'',str(timer)
             goals.append(goal)
             ballPosition = 3
+            skipSomeIf = True # skips next if's from 120 line
             if ballPosesion == teamHome:
               scoreHome += 1
             else:
               scoreAway += 1
               
             ballPosesion = ballNotPossesion
-            time()
+            
             print(ballPosesion,' rozpoczyna grę od środka')
             possesionChange = True
+            time()
             
               
           else:
             print('Bramkarz drużyny',ballNotPossesion,'Chwyta piłkę')
             print('Bramkarz zaczyna wybiciem od bramki')
             ballPosition = 3
+            skipSomeIf = True
             time()
         else:
           print('Piłka nie trafia w światło bramki')
           print('Bramkarz zaczyna wybiciem od bramki')
           ballPosition = 3
+          skipSomeIf = True
           time()
+          
             
       else:
         playTest = randint(1,100)
@@ -118,9 +123,12 @@ while matchHalfLenght > 0:
           ballPosesion = ballNotPossesion
           print('Piłkę przejmuje', ballPosesion)
           possesionChange = True
-          time()
+          skipSomeIf = True
+          playChance = 85 
           
-  if (playChance + teamsRating) >= playTest:
+          time()
+  #print(teamsRating+playChance, teamHomeScore, teamAwayScore)
+  if (playChance + teamsRating) >= playTest and not skipSomeIf:
     if ballPosition == 3:
       playChance = 85
     elif ballPosition == 2 or ballPosition == 4:
@@ -143,16 +151,18 @@ while matchHalfLenght > 0:
     playTest = randint(1,100)
     time()
   
-  else:
-    print(ballPosesion,' Traci piłkę')
-    ballPosesion = ballNotPossesion
-    print('Piłkę przejmuje', ballPosesion)
-    possesionChange = True
-    time()
+  else :
+    if not skipSomeIf:
+      print(ballPosesion,' Traci piłkę')
+      ballPosesion = ballNotPossesion
+      print('Piłkę przejmuje', ballPosesion)
+      possesionChange = True
+      playChance = 85
+      time()
   
   
   
-  
+  print('',timer,'minuta spotkania')
   
   if timer == 45 and firstHalf:
     
