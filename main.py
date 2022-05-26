@@ -2,26 +2,28 @@
 from random import randint
 from time import sleep
 from os import system, name
-line1 =  ('------------------------------------------------------------------------------------')
-line2 =  ('|                                        |                                         |')
-line3 =  ('|                                        |                                         |')
-line4 =  ('|----------                              |                               ----------|')
-line5 =  ('|         |                            --|--                             |         |')
-line6 =  ('|         |                         -    |    -                          |         |')
-line7 =  ('|-        |-                      -      |      -                       -|        -|')
-line8 =  ('| |       | -                   -        |        -                    - |       | |')
-line9 =  ('| |       |  -                 -         o         -                  -  |       | |')
-line10 = ('| |       | -                   -        |        -                    - |       | |')
-line11 = ('|-        |-                      -      |      -                       -|        -|')
-line12 = ('|         |                         -    |    -                          |         |')
-line13 = ('|         |                            --|--                             |         |')
-line14 = ('|----------                              |                               ----------|')
-line15 = ('|                                        |                                         |')
-line16 = ('|                                        |                                         |')
-line17 = ('------------------------------------------------------------------------------------')
-
+def PitchClearGraph():
+  global line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17
+  line1 =  ('------------------------------------------------------------------------------------')
+  line2 =  ('|                                        |                                         |')
+  line3 =  ('|                                        |                                         |')
+  line4 =  ('|----------                              |                               ----------|')
+  line5 =  ('|         |                            --|--                             |         |')
+  line6 =  ('|         |                         -    |    -                          |         |')
+  line7 =  ('|-        |-                      -      |      -                       -|        -|')
+  line8 =  ('| |       | -                   -        |        -                    - |       | |')
+  line9 =  ('| |       |  -                 -         o         -                  -  |       | |')
+  line10 = ('| |       | -                   -        |        -                    - |       | |')
+  line11 = ('|-        |-                      -      |      -                       -|        -|')
+  line12 = ('|         |                         -    |    -                          |         |')
+  line13 = ('|         |                            --|--                             |         |')
+  line14 = ('|----------                              |                               ----------|')
+  line15 = ('|                                        |                                         |')
+  line16 = ('|                                        |                                         |')
+  line17 = ('------------------------------------------------------------------------------------')
+PitchClearGraph()
 def Print_Pitch():
-  print ('                 ',teamHome, scoreHome,'          :        ',scoreAway, teamAway)
+  print ('                 ',teamHome, scoreHome,'         :       ',scoreAway, teamAway)
   if ballPosesion == teamHome:
     print('                  =============')
   else:
@@ -88,12 +90,8 @@ goals = []
 ballGraph = '@'
 skipSomeIf = False # this variable helps to skip loops after goal
 skipFirstIf = False
-line9 =  ('| |       |  -                  -        @         -                  -  |       | |')
-Print_Pitch()
-line9 =  ('| |       |  -                  -        o         -                  -  |       | |')
-print('We start the match between ',teamHome,' and ',teamAway,'!')
-print('The match will be started by the host team')
-sleep(5)
+
+
 def clear():
   _ = system('clear')
 
@@ -104,8 +102,26 @@ def time():
   timer += 1
   #clear()
   matchHalfLenght -= 1
-
-
+def Goal():
+  global line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17
+  line1 =  ('------------------------------------------------------------------------------------')
+  line2 =  ('|                                        |                                         |')
+  line3 =  ('|           ggggggg            ooooo     |  AAAAAAAAA       L              ##      |')
+  line4 =  ('|---------g         g        o       o   | A         A      L            --##------|')
+  line5 =  ('|        g|                o           o-|-A         A      L            | ##      |')
+  line6 =  ('|       g |                o        -  o | A  -      A      L            | ##      |')
+  line7 =  ('|-      g |-               o      -    o | A    -    A      L           -| ##     -|')
+  line8 =  ('| |     g | -              o    -      o | A      -  A      L          - | ##    | |')
+  line9 =  ('| |     g |  -             o   -       o o AAAAAAAAAAA      L         -  | ##    | |')
+  line10 = ('| |     g | - gggggggg     o    -      o | A      -  A      L          - | ##    | |')
+  line11 = ('|-      g |-         g     o      -    o | A    -    A      L           -|        -|')
+  line12 = ('|       g |         g      o        -  o | A  -      A      L            |         |')
+  line13 = ('|         g        g        o        o --|-A         A      L            | ##      |')
+  line14 = ('|---------- gggggg            ooooooo    | A         A      LLLLLLLLLLLL --##------|')
+  line15 = ('|                                        |                                         |')
+  line16 = ('|                                        |                                         |')
+  line17 = ('------------------------------------------------------------------------------------')
+  return
 
 
 xMin = 41
@@ -115,7 +131,19 @@ yMax = 9
 goalkeeperCatched = False
 while matchHalfLenght > 0:
   skipSomeIf = False # means that no goal yet
-  
+  if timer == 0 and firstHalf or timer == 45 and secondHalf:
+    line9 =  ('| |       |  -                  -        @         -                  -  |       | |')
+    Print_Pitch()
+    line9 =  ('| |       |  -                  -        o         -                  -  |       | |')
+    if firstHalf:
+      print('We start the match between ',teamHome,' and ',teamAway,'!')
+      print('The match will be started by the host team')
+    if secondHalf:
+      print(teamAway,' starts the second half!')
+      ballPosesion = teamAway
+      ballNotPossesion = teamHome
+    sleep(5)
+      
   clear()
   
   
@@ -151,6 +179,7 @@ while matchHalfLenght > 0:
       Print_Pitch()
       if (shootChance + teamsRating) >= playTest:
         print(ballPosesion,'Shooooooots!')
+        sleep(1)
         playTest = randint(1,100)
         if (hitChance + teamsRating) >= playTest:
           playTest = randint(1,100)
@@ -161,28 +190,18 @@ while matchHalfLenght > 0:
             saveChance += teamAwayScore
           #print('jeśli ',saveChance,' jest większe od ',playTest,' to gol')      shoot test
           if saveChance >= playTest:
-            clear()
-            line1 =  ('------------------------------------------------------------------------------------')
-            line2 =  ('|                                        |                                         |')
-            line3 =  ('|           ggggggg            ooooo     |  AAAAAAAAA       L                      |')
-            line4 =  ('|---------g         g        o       o   | A         A      L            ----------|')
-            line5 =  ('|        g|                o           o-|-A         A      L            |         |')
-            line6 =  ('|        g|                o        -  o | A  -      A      L            |         |')
-            line7 =  ('|-       g|-               o      -    o | A    -    A      L           -|        -|')
-            line8 =  ('| |      g| -              o    -      o | A      -  A      L          - |       | |')
-            line9 =  ('| |      g|  -             o   -       o o AAAAAAAAAAA      L         -  |       | |')
-            line10 = ('| |      g| - gggggggg     o    -      o | A      -  A      L          - |       | |')
-            line11 = ('|-       g|-         g     o      -    o | A    -    A      L           -|        -|')
-            line12 = ('|        g|         g      o        -  o | A  -      A      L            |         |')
-            line13 = ('|         g        g        o        o --|-A         A      L            |         |')
-            line14 = ('|---------- gggggg            ooooooo    | A         A      LLLLLLLLLLLL ----------|')
-            line15 = ('|                                        |                                         |')
-            line16 = ('|                                        |                                         |')
-            line17 = ('------------------------------------------------------------------------------------')
-            Print_Pitch()
-            
-            print('GOOOOOOOAL FOR',ballPosesion)
-            sleep(2)
+            for blink in range(10):
+              clear()
+              Goal()
+              Print_Pitch()
+              sleep(0.3)
+              clear()
+              PitchClearGraph()
+              Print_Pitch()
+              Goal()
+              sleep(0.3)
+              print('GOOOOOOOAL FOR',ballPosesion)
+            PitchClearGraph()
             clear()
             goal = ballPosesion +'',str(timer)
             
@@ -197,7 +216,7 @@ while matchHalfLenght > 0:
             else:
               scoreAway += 1
               
-            sleep(2)
+            
             ballPosesion = ballNotPossesion
             
             
@@ -389,23 +408,7 @@ while matchHalfLenght > 0:
       print(teamHome,'starts the game from the center of the pitch')
     
     
-    line1 =  ('------------------------------------------------------------------------------------')
-    line2 =  ('|                                        |                                         |')
-    line3 =  ('|                                        |                                         |')
-    line4 =  ('|----------                              |                               ----------|')
-    line5 =  ('|         |                            --|--                             |         |')
-    line6 =  ('|         |                         -    |    -                          |         |')
-    line7 =  ('|-        |-                      -      |      -                       -|        -|')
-    line8 =  ('| |       | -                   -        |        -                    - |       | |')
-    line9 =  ('| |       |  -                 -         o         -                  -  |       | |')
-    line10 = ('| |       | -                   -        |        -                    - |       | |')
-    line11 = ('|-        |-                      -      |      -                       -|        -|')
-    line12 = ('|         |                         -    |    -                          |         |')
-    line13 = ('|         |                            --|--                             |         |')
-    line14 = ('|----------                              |                               ----------|')
-    line15 = ('|                                        |                                         |')
-    line16 = ('|                                        |                                         |')
-    line17 = ('------------------------------------------------------------------------------------')
+    PitchClearGraph()
     if ballMove != 1:
       clear()
   ballMove = startingBallMove
@@ -414,7 +417,7 @@ while matchHalfLenght > 0:
   skipFirstIf = False
   
   #Print_Pitch()
-  sleep(1)
+  sleep(2)
 
 print("The referee's last whistle!!! ")
 print('Final result:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
