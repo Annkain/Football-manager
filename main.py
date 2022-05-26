@@ -25,10 +25,10 @@ PitchClearGraph()
 def Print_Pitch():
   print ('                 ',teamHome, scoreHome,'         :       ',scoreAway, teamAway)
   if ballPosesion == teamHome:
-    print('                  =============')
+    print(' =======================================')
   else:
-    print('                                                    ==============')
-  print('                                    ',timer,'min')
+    print('                                           =======================================')
+  print('                                      ',timer,'min')
   print(line1)       #football pitch
   print(line2)
   print(line3)
@@ -200,9 +200,10 @@ while matchHalfLenght > 0:
               Print_Pitch()
               Goal()
               sleep(0.3)
-              print('GOOOOOOOAL FOR',ballPosesion)
+              
             PitchClearGraph()
             clear()
+            
             goal = ballPosesion +'',str(timer)
             
             goals.append(goal)
@@ -389,6 +390,8 @@ while matchHalfLenght > 0:
       print(goals)
       sleep(3)
       print('Lets start the second half')
+      sleep(1)
+      clear()
       secondHalf = True
       firstHalf = False
       timer = 45
@@ -399,11 +402,13 @@ while matchHalfLenght > 0:
       matchHalfLenght += extraTime2
       print("We gonna play for ",extraTime,'minutes more!')
     
-    #if goalkeeperCatched is False and goalScored is False and skipFirstIf is False:
-    print(' '.join(textZone))
+    #if goalkeeperCatched is False and goalScored is False and skipFirstIf is False
+    if timer != (45 and secondHalf) or timer != (timer+extraTime and firstHalf): 
+      if not goalScored:
+        print(' '.join(textZone))
     #if skipFirstIf is False and goalScored is False:
-    print('Current ball position:',pitchZone[ballPosition])
-    print(' '.join(text3))
+      print('Current ball position:',pitchZone[ballPosition])
+      print(' '.join(text3))
     if timer == 0:
       print(teamHome,'starts the game from the center of the pitch')
     
@@ -417,7 +422,7 @@ while matchHalfLenght > 0:
   skipFirstIf = False
   
   #Print_Pitch()
-  sleep(2)
+  sleep(0.5)
 
 print("The referee's last whistle!!! ")
 print('Final result:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
