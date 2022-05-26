@@ -2,6 +2,50 @@
 from random import randint
 from time import sleep
 from os import system, name
+line1 =  ('------------------------------------------------------------------------------------')
+line2 =  ('|                                        |                                         |')
+line3 =  ('|                                        |                                         |')
+line4 =  ('|----------                              |                               ----------|')
+line5 =  ('|         |                            --|--                             |         |')
+line6 =  ('|         |                         -    |    -                          |         |')
+line7 =  ('|-        |-                      -      |      -                       -|        -|')
+line8 =  ('| |       | -                   -        |        -                    - |       | |')
+line9 =  ('| |       |  -                 -         o         -                  -  |       | |')
+line10 = ('| |       | -                   -        |        -                    - |       | |')
+line11 = ('|-        |-                      -      |      -                       -|        -|')
+line12 = ('|         |                         -    |    -                          |         |')
+line13 = ('|         |                            --|--                             |         |')
+line14 = ('|----------                              |                               ----------|')
+line15 = ('|                                        |                                         |')
+line16 = ('|                                        |                                         |')
+line17 = ('------------------------------------------------------------------------------------')
+
+def Print_Pitch():
+  print ('                 ',teamHome, scoreHome,'          :        ',scoreAway, teamAway)
+  if ballPosesion == teamHome:
+    print('                  =============')
+  else:
+    print('                                                    ==============')
+  print('                                    ',timer,'min')
+  print(line1)       #football pitch
+  print(line2)
+  print(line3)
+  print(line4)
+  print(line5)
+  print(line6)
+  print(line7)
+  print(line8)
+  print(line9)
+  print(line10)
+  print(line11)
+  print(line12)
+  print(line13)
+  print(line14)
+  print(line15)
+  print(line16)
+  print(line17)   
+
+
 teamRatingHome = 0  # home team odds f.e. from livescore.com
 
 teamRatingAway = 15  # away team odds f.e. from livescore.com
@@ -17,7 +61,8 @@ textZone = ''
 text3 = ''
 textTimer = ''
 text = 0
-ballMove = 5
+ballMove = 2
+startingBallMove = 2
 matchHalfLenght = 45  #first half time
 timeSecondHalf = 45  #second thalf time
 teamHome = 'Real Madryt'
@@ -28,10 +73,8 @@ playTest = None
 extraTime = randint(2,4)
 extraTime2 = randint(3,8)
 pitchZone = [
-    'Pole karne '+teamHome, 'Granica pola karnego '+teamHome, 'Połowa '+teamHome, 'Środek boiska',
-    'Połowa '+teamAway, 'Granica pola karnego '+teamAway, 'Pole karne '+teamAway
+    teamHome+' Penalty area', 'Defensive third of '+teamHome, teamHome+' Half', 'Middle third', teamAway+' Half', 'Defensive thirf of '+teamAway, teamAway+' Penalty area'
 ]
-firstHalf = True
 secondHalf = False
 timer = 0
 ballPosition = 3
@@ -40,16 +83,20 @@ scoreHome = 0
 scoreAway = 0
 possesionChange = None
 goalScored = False
+firstHalf = True
 goals = [] 
 ballGraph = '@'
 skipSomeIf = False # this variable helps to skip loops after goal
 skipFirstIf = False
-print('Rozpoczynamy mecz pomiędzy ',teamHome,' a ',teamAway,'!')
-print('Spotkanie rozpocznie druzyna gospodarzy')
-sleep(2)
+line9 =  ('| |       |  -                  -        @         -                  -  |       | |')
+Print_Pitch()
+line9 =  ('| |       |  -                  -        o         -                  -  |       | |')
+print('We start the match between ',teamHome,' and ',teamAway,'!')
+print('The match will be started by the host team')
+sleep(5)
 def clear():
   _ = system('clear')
-clear()
+
 def time():
   global timer, matchHalfLenght
   
@@ -60,24 +107,6 @@ def time():
 
 
 
-line1 =  ('------------------------------------------------------------------------------------')
-line2 =  ('|                                        |                                         |')
-line3 =  ('|                                        |                                         |')
-line4 =  ('|----------                              |                               ----------|')
-line5 =  ('|         |                            --|--                             |         |')
-line6 =  ('|         |                          -   |    -                          |         |')
-line7 =  ('|-        |-                       -     |      -                       -|        -|')
-line8 =  ('| |       | -                    -       |        -                    - |       | |')
-line9 =  ('| |       |  -                  -        o         -                  -  |       | |')
-line10 = ('| |       | -                    -       |        -                    - |       | |')
-line11 = ('|-        |-                       -     |      -                       -|        -|')
-line12 = ('|         |                          -   |    -                          |         |')
-line13 = ('|         |                            --|--                             |         |')
-line14 = ('|----------                              |                               ----------|')
-line15 = ('|                                        |                                         |')
-line16 = ('|                                        |                                         |')
-line17 = ('------------------------------------------------------------------------------------')
-
 
 xMin = 41
 xMax = 41
@@ -87,6 +116,8 @@ goalkeeperCatched = False
 while matchHalfLenght > 0:
   skipSomeIf = False # means that no goal yet
   
+  clear()
+  
   
  
 
@@ -94,7 +125,7 @@ while matchHalfLenght > 0:
   
   
   
-  #sleep(0.8)
+  
   playTest = randint(1,100)
   
   if ballPosesion == teamHome:
@@ -109,7 +140,7 @@ while matchHalfLenght > 0:
 
  
   if goalScored is True:
-    print(ballPosesion,' rozpoczyna grę od środka')
+    print(ballPosesion,' starts the game from the middle')
     possesionChange = True
     goalScored = False
     skipFirstIf = True
@@ -117,8 +148,9 @@ while matchHalfLenght > 0:
     time()
   #print(ballPosition,'                                 POZYCJA')
   if (ballPosition == 0 and ballPosesion == teamAway) or (ballPosition == 6 and ballPosesion == teamHome) and skipFirstIf is False:
+      Print_Pitch()
       if (shootChance + teamsRating) >= playTest:
-        print(ballPosesion,'Strzela!')
+        print(ballPosesion,'Shooooooots!')
         playTest = randint(1,100)
         if (hitChance + teamsRating) >= playTest:
           playTest = randint(1,100)
@@ -127,9 +159,31 @@ while matchHalfLenght > 0:
             saveChance += teamHomeScore
           else:
             saveChance += teamAwayScore
-          print('jeśli ',saveChance,' jest większe od ',playTest,' to gol')
+          #print('jeśli ',saveChance,' jest większe od ',playTest,' to gol')      shoot test
           if saveChance >= playTest:
-            print('GOOOOOOOL DLA',ballPosesion)
+            clear()
+            line1 =  ('------------------------------------------------------------------------------------')
+            line2 =  ('|                                        |                                         |')
+            line3 =  ('|           ggggggg            ooooo     |  AAAAAAAAA       L                      |')
+            line4 =  ('|---------g         g        o       o   | A         A      L            ----------|')
+            line5 =  ('|        g|                o           o-|-A         A      L            |         |')
+            line6 =  ('|        g|                o        -  o | A  -      A      L            |         |')
+            line7 =  ('|-       g|-               o      -    o | A    -    A      L           -|        -|')
+            line8 =  ('| |      g| -              o    -      o | A      -  A      L          - |       | |')
+            line9 =  ('| |      g|  -             o   -       o o AAAAAAAAAAA      L         -  |       | |')
+            line10 = ('| |      g| - gggggggg     o    -      o | A      -  A      L          - |       | |')
+            line11 = ('|-       g|-         g     o      -    o | A    -    A      L           -|        -|')
+            line12 = ('|        g|         g      o        -  o | A  -      A      L            |         |')
+            line13 = ('|         g        g        o        o --|-A         A      L            |         |')
+            line14 = ('|---------- gggggg            ooooooo    | A         A      LLLLLLLLLLLL ----------|')
+            line15 = ('|                                        |                                         |')
+            line16 = ('|                                        |                                         |')
+            line17 = ('------------------------------------------------------------------------------------')
+            Print_Pitch()
+            
+            print('GOOOOOOOAL FOR',ballPosesion)
+            sleep(2)
+            clear()
             goal = ballPosesion +'',str(timer)
             
             goals.append(goal)
@@ -152,16 +206,16 @@ while matchHalfLenght > 0:
             
               
           else:
-            print('Bramkarz drużyny',ballNotPossesion,'Chwyta piłkę')
-            print('Bramkarz zaczyna wybiciem od bramki')
+            print('Goalkeeper of',ballNotPossesion,'catches the ball')
+            print('The goalkeeper starts with a goal kick')
             sleep(3)
             goalkeeperCatched = True
             ballPosition = 3
             skipSomeIf = True
             time()
         else:
-          print('Piłka nie trafia w światło bramki')
-          print('Bramkarz zaczyna wybiciem od bramki')
+          print('Ball misses the goal')
+          print('The goalkeeper starts with a goal kick')
           sleep(3)
           ballPosition = 3
           skipSomeIf = True
@@ -171,10 +225,10 @@ while matchHalfLenght > 0:
       else:
         playTest = randint(1,100)
         if playTest > 50 :
-          text3 = (ballNotPossesion,' Wybija piłkę!' )
+          text3 = (ballNotPossesion,' kicks the ball away!' )
           ballPosition = 3
         elif playTest <= 50 :
-          textZone = (ballPosesion,'traci piłkę, przejmuję ją',ballNotPossesion)
+          textZone = (ballPosesion,'loses the ball,',ballNotPossesion,' takes it')
           ballPosesion = ballNotPossesion
           
           
@@ -203,14 +257,14 @@ while matchHalfLenght > 0:
     
 
       
-    textZone = (ballPosesion,'przechodzi do strefy',pitchZone[ballPosition])
+    textZone = (ballPosesion,'moves to',pitchZone[ballPosition])
     playChance -= 20
     playTest = randint(1,100)
     time()
   
   else :
     if skipSomeIf is False:
-      textZone = (ballPosesion,'traci piłkę, przejmuję ją',ballNotPossesion)
+      textZone = (ballPosesion,'loses the ball,',ballNotPossesion,' takes it')
       ballPosesion = ballNotPossesion
       
       
@@ -222,8 +276,9 @@ while matchHalfLenght > 0:
   
 
   
-
+                                              #ball movement
   while ballMove > 1:
+    #sleep(2)
     
     if ballPosition == 3 :
       xMin = 35
@@ -246,15 +301,15 @@ while matchHalfLenght > 0:
     elif ballPosition == 6:
       xMin = 74
       xMax = 78
-    if ballMove == 5:
+    if ballMove == startingBallMove:
       xx = randint(xMin,xMax)
       yy = randint(yMin,yMax)
-    if goalScored is True or secondHalf:
+    if goalScored is True or (secondHalf and timer == 45) :
       x = 41
       y = 9
     else:
-      x = randint(xx-1,xx+1)
-      y = randint(yy-1,yy+1)
+      x = randint(xx-2,xx+2)
+      y = randint(yy-5,yy+5)
     
       
     
@@ -301,40 +356,20 @@ while matchHalfLenght > 0:
     elif y == 16:
       line16 = line16[:x] + ballGraph + line16[x+1:]
     ballMove -= 1
-    print ('                 ',teamHome, scoreHome,'          :        ',scoreAway, teamAway)
-    if ballPosesion == teamHome:
-      print('                  =============')
-    else:
-      print('                                                    ==============')
-    print('                                    ',timer,'minuta')
-    print(line1)       #football pitch
-    print(line2)
-    print(line3)
-    print(line4)
-    print(line5)
-    print(line6)
-    print(line7)
-    print(line8)
-    print(line9)
-    print(line10)
-    print(line11)
-    print(line12)
-    print(line13)
-    print(line14)
-    print(line15)
-    print(line16)
-    print(line17)
+    #sleep(10)
+    clear()
+    Print_Pitch()
     if goalScored is True:
-      print(ballPosesion,'rozpocznie grę z środka boiska')
+      print(ballPosesion,' starts the game from the center of the pitch')
     if timer == 45 and firstHalf:
     
       matchHalfLenght += extraTime
-      print("Sędzia doliczył ",extraTime-1,'minuty!')
+      print("We gonna play for ",extraTime,'minutes more!')
     if timer == 45+extraTime and firstHalf:
-      print('Wynik pierwszej połowy:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
+      print('First half result:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
       print(goals)
       sleep(3)
-      print('Rozpoczynamy drugą połowę')
+      print('Lets start the second half')
       secondHalf = True
       firstHalf = False
       timer = 45
@@ -343,29 +378,29 @@ while matchHalfLenght > 0:
     
     if timer == 90:
       matchHalfLenght += extraTime2
-      print("Sędzia doliczył ",extraTime2-1,'minuty!')
+      print("We gonna play for ",extraTime,'minutes more!')
     
-    if goalkeeperCatched is False and goalScored is False and skipFirstIf is False:
-      print(' '.join(textZone))
-    if skipFirstIf is False and goalScored is False:
-      print('Piłka znajduje się w:',pitchZone[ballPosition])
+    #if goalkeeperCatched is False and goalScored is False and skipFirstIf is False:
+    print(' '.join(textZone))
+    #if skipFirstIf is False and goalScored is False:
+    print('Current ball position:',pitchZone[ballPosition])
     print(' '.join(text3))
     if timer == 0:
-      print(teamHome,'rozpoczyna spotkanie z środka boiska')
-    sleep(1)
+      print(teamHome,'starts the game from the center of the pitch')
+    
     
     line1 =  ('------------------------------------------------------------------------------------')
     line2 =  ('|                                        |                                         |')
     line3 =  ('|                                        |                                         |')
     line4 =  ('|----------                              |                               ----------|')
     line5 =  ('|         |                            --|--                             |         |')
-    line6 =  ('|         |                          -   |    -                          |         |')
-    line7 =  ('|-        |-                       -     |      -                       -|        -|')
-    line8 =  ('| |       | -                    -       |        -                    - |       | |')
-    line9 =  ('| |       |  -                  -        o         -                  -  |       | |')
-    line10 = ('| |       | -                    -       |        -                    - |       | |')
-    line11 = ('|-        |-                       -     |      -                       -|        -|')
-    line12 = ('|         |                          -   |    -                          |         |')
+    line6 =  ('|         |                         -    |    -                          |         |')
+    line7 =  ('|-        |-                      -      |      -                       -|        -|')
+    line8 =  ('| |       | -                   -        |        -                    - |       | |')
+    line9 =  ('| |       |  -                 -         o         -                  -  |       | |')
+    line10 = ('| |       | -                   -        |        -                    - |       | |')
+    line11 = ('|-        |-                      -      |      -                       -|        -|')
+    line12 = ('|         |                         -    |    -                          |         |')
     line13 = ('|         |                            --|--                             |         |')
     line14 = ('|----------                              |                               ----------|')
     line15 = ('|                                        |                                         |')
@@ -373,31 +408,16 @@ while matchHalfLenght > 0:
     line17 = ('------------------------------------------------------------------------------------')
     if ballMove != 1:
       clear()
-  ballMove = 5
+  ballMove = startingBallMove
   text3 = ''
   goalkeeperCatched = False
   skipFirstIf = False
   
-  
-print(line1)       #football pitch
-print(line2)
-print(line3)
-print(line4)
-print(line5)
-print(line6)
-print(line7)
-print(line8)
-print(line9)
-print(line10)
-print(line11)
-print(line12)
-print(line13)
-print(line14)
-print(line15)
-print(line16)
-print(line17)   
-print('Sędzia gwiżdże po raz ostatni!!! Koniec spotkania')
-print('Wynik całego meczu:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
+  #Print_Pitch()
+  sleep(1)
+
+print("The referee's last whistle!!! ")
+print('Final result:\n ',teamHome, scoreHome,'\n',teamAway, scoreAway)
 print(goals)
  
 
